@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Автоматизация управления конфигурациями</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="visual-element"></div>
+    
+    <header class="header">
+        <nav class="nav">
+            <div class="container">
+                <div class="nav__content">
+                    <a href="#" class="nav__logo">Дипломный проект</a>
+                    <ul class="nav__menu">
+                        <li><a href="#intro">Введение</a></li>
+                        <li><a href="#chapter1">Глава 1</a></li>
+                        <li><a href="#chapter2">Глава 2</a></li>
+                        <li><a href="#conclusion">Заключение</a></li>
+                    </ul>
+                    <button class="nav__theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="intro" class="hero">
+            <div class="container">
+                <h1 class="hero__title slide-in-left">Внедрение Ansible для автоматизации ИТ-инфраструктуры сети магазинов «Домотехника»</h1>
+                <p class="hero__subtitle slide-in-right">Дипломный проект: современный подход к управлению конфигурациями</p>
+            </div>
+        </section>
+
+        <!-- Новый красивый блок о предприятии и актуальности -->
+        <section id="about-enterprise" class="about-enterprise-block">
+            <div class="container">
+                <div class="about-enterprise-card">
+                    <div class="about-enterprise-icon">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <div class="about-enterprise-content">
+                        <h2>О предприятии</h2>
+                        <p><b>ООО «Домотехника»</b> — крупная сеть розничных магазинов и сервисных центров по продаже и обслуживанию бытовой техники. Компания объединяет 30 магазинов, центральный офис и распределённую ИТ-инфраструктуру, включающую:</p>
+                        <ul>
+                            <li>250 POS-терминалов на базе Xubuntu 22.04 LTS, интегрированных с кассовым оборудованием и сканерами штрих-кодов, работающих 24/7.</li>
+                            <li>Кластер баз данных (7 серверов Oracle Linux 8.7), серверы приложений (3 узла CentOS Stream 9), контроллеры домена (4 сервера Windows Server 2022).</li>
+                            <li>Сетевую инфраструктуру с Cisco Catalyst 9200L, маршрутизаторами MikroTik, объединёнными через IPSec-туннели с сегментацией на VLAN.</li>
+                        </ul>
+                        <div class="about-enterprise-actual">
+                            <i class="fas fa-bolt"></i>
+                            <div>
+                                <h3>Актуальность</h3>
+                                <p>Внедрение централизованной системы управления конфигурациями необходимо для устранения рутинных ошибок, ускорения масштабирования и повышения надёжности ИТ-инфраструктуры.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chapter1" class="chapter">
+            <div class="container">
+                <h2 class="chapter__title fade-in-up">Глава 1. Анализ исходных данных</h2>
+            </div>
+        </section>
+
+        <section id="chapter1-1" class="chapter-slide">
+            <div class="container">
+                <div class="chapter__card slide-in-left">
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3>Изучение предметной области</h3>
+                            <div class="card-tags">
+                                <span class="tag">Автоматизация</span>
+                                <span class="tag">DevOps</span>
+                                <span class="tag">Ansible</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="content-section">
+                                <h4>Возможности Ansible:</h4>
+                                <div class="feature-grid">
+                                    <div class="feature-item">
+                                        <i class="fas fa-server"></i>
+                                        <h5>Управление конфигурациями</h5>
+                                        <p>Автоматизация настройки серверов и приложений</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-code-branch"></i>
+                                        <h5>Непрерывная интеграция</h5>
+                                        <p>Интеграция с CI/CD системами</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <h5>Безопасность</h5>
+                                        <p>Управление доступом и шифрование</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-network-wired"></i>
+                                        <h5>Оркестрация</h5>
+                                        <p>Управление распределенными системами</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-section">
+                                <h4>Основные проблемы в текущих процессах:</h4>
+                                <div class="problem-list">
+                                    <div class="problem-item">
+                                        <i class="fas fa-exclamation-triangle"></i>
+                                        <div class="problem-content">
+                                            <h5>Ручное управление</h5>
+                                            <p>Высокие затраты времени на ручные операции</p>
+                                        </div>
+                                    </div>
+                                    <div class="problem-item">
+                                        <i class="fas fa-random"></i>
+                                        <div class="problem-content">
+                                            <h5>Отсутствие стандартизации</h5>
+                                            <p>Разные подходы к конфигурации в разных отделах</p>
+                                        </div>
+                                    </div>
+                                    <div class="problem-item">
+                                        <i class="fas fa-clock"></i>
+                                        <div class="problem-content">
+                                            <h5>Временные затраты</h5>
+                                            <p>Длительные процессы развертывания</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chapter1-2" class="chapter-slide">
+            <div class="container">
+                <div class="chapter__card slide-in-right">
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3>Требования к системе</h3>
+                            <div class="card-tags">
+                                <span class="tag">Требования</span>
+                                <span class="tag">Функционал</span>
+                                <span class="tag">Безопасность</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="content-section">
+                                <h4>Функциональные требования:</h4>
+                                <div class="requirements-grid">
+                                    <div class="requirement-item">
+                                        <div class="requirement-icon">
+                                            <i class="fas fa-rocket"></i>
+                                        </div>
+                                        <div class="requirement-details">
+                                            <h5>Автоматизация развертывания</h5>
+                                            <ul>
+                                                <li>Автоматическое развертывание приложений</li>
+                                                <li>Управление зависимостями</li>
+                                                <li>Контроль версий</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="requirement-item">
+                                        <div class="requirement-icon">
+                                            <i class="fas fa-cogs"></i>
+                                        </div>
+                                        <div class="requirement-details">
+                                            <h5>Управление конфигурациями</h5>
+                                            <ul>
+                                                <li>Централизованное управление</li>
+                                                <li>Шаблоны конфигураций</li>
+                                                <li>Валидация настроек</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-section">
+                                <h4>Технические требования:</h4>
+                                <div class="tech-requirements">
+                                    <div class="tech-item">
+                                        <i class="fas fa-laptop-code"></i>
+                                        <h5>Поддержка платформ</h5>
+                                        <p>Windows, Linux, macOS</p>
+                                    </div>
+                                    <div class="tech-item">
+                                        <i class="fas fa-database"></i>
+                                        <h5>Интеграция</h5>
+                                        <p>Git, Jenkins, Docker</p>
+                                    </div>
+                                    <div class="tech-item">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <h5>Безопасность</h5>
+                                        <p>Шифрование, RBAC</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chapter1-3" class="chapter-slide">
+            <div class="container">
+                <div class="chapter__card slide-in-left">
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3>Сравнительный анализ решений</h3>
+                            <div class="card-tags">
+                                <span class="tag">Анализ</span>
+                                <span class="tag">Ansible</span>
+                                <span class="tag">Puppet</span>
+                                <span class="tag">Chef</span>
+                                <span class="tag">SaltStack</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="content-section">
+                                <h4>Критерии сравнения:</h4>
+                                <div class="feature-grid">
+                                    <div class="feature-item">
+                                        <i class="fas fa-user-friends"></i>
+                                        <h5>Простота использования</h5>
+                                        <p>Минимальный порог входа, понятный YAML-синтаксис (Ansible).</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-expand-arrows-alt"></i>
+                                        <h5>Масштабируемость</h5>
+                                        <p>Поддержка крупных инфраструктур, горизонтальное масштабирование.</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-cogs"></i>
+                                        <h5>Интеграция</h5>
+                                        <p>Возможность интеграции с CI/CD, облачными сервисами, Docker.</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-users"></i>
+                                        <h5>Сообщество</h5>
+                                        <p>Активное сообщество, наличие документации и модулей.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-section">
+                                <h4>Вывод:</h4>
+                                <ul>
+                                    <li><b>Ansible</b> выбран как основное решение за счёт простоты, отсутствия агентов и широкой поддержки.</li>
+                                    <li>Chef и Puppet требуют установки агентов и имеют более сложный синтаксис.</li>
+                                    <li>SaltStack — мощный, но менее распространён в России.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chapter1-4" class="chapter-slide">
+            <div class="container">
+                <div class="chapter__card slide-in-right">
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3>Техническое задание</h3>
+                            <div class="card-tags">
+                                <span class="tag">ТЗ</span>
+                                <span class="tag">Проектирование</span>
+                                <span class="tag">Документация</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="content-section">
+                                <h4>Цели:</h4>
+                                <ul>
+                                    <li>Внедрение централизованной системы управления конфигурациями.</li>
+                                    <li>Автоматизация рутинных задач администрирования.</li>
+                                    <li>Повышение отказоустойчивости и безопасности.</li>
+                                </ul>
+                            </div>
+                            <div class="content-section">
+                                <h4>Задачи:</h4>
+                                <ul>
+                                    <li>Разработка архитектуры решения.</li>
+                                    <li>Создание инвентарных файлов и playbook'ов.</li>
+                                    <li>Тестирование и внедрение в тестовом контуре.</li>
+                                    <li>Оценка экономического эффекта.</li>
+                                </ul>
+                            </div>
+                            <div class="content-section">
+                                <h4>Ожидаемые результаты:</h4>
+                                <ul>
+                                    <li>Снижение времени развертывания сервисов на 30%.</li>
+                                    <li>Снижение количества ошибок на 50%.</li>
+                                    <li>Повышение прозрачности и управляемости инфраструктуры.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chapter2" class="chapter">
+            <div class="container">
+                <h2 class="chapter__title fade-in-up">Глава 2. Разработка и внедрение</h2>
+            </div>
+        </section>
+
+        <section id="chapter2-1" class="chapter-slide">
+            <div class="container">
+                <div class="chapter__card slide-in-left">
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3>Архитектура системы</h3>
+                            <div class="card-tags">
+                                <span class="tag">Архитектура</span>
+                                <span class="tag">Backend</span>
+                                <span class="tag">DevOps</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="content-section">
+                                <h4>Компоненты архитектуры:</h4>
+                                <div class="feature-grid">
+                                    <div class="feature-item">
+                                        <i class="fas fa-server"></i>
+                                        <h5>Управляющий узел (Ansible Control Node)</h5>
+                                        <p>Оркестрация и запуск playbook'ов, управление инвентарём.</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-database"></i>
+                                        <h5>Кластер баз данных</h5>
+                                        <p>Хранение конфигураций и данных приложений.</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-network-wired"></i>
+                                        <h5>Сетевые устройства</h5>
+                                        <p>Маршрутизаторы, коммутаторы, сегментация по VLAN.</p>
+                                    </div>
+                                    <div class="feature-item">
+                                        <i class="fas fa-desktop"></i>
+                                        <h5>POS-терминалы</h5>
+                                        <p>Рабочие станции магазинов, управляемые централизованно.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="content-section">
+                                <h4>Визуализация backend (интерактивная схема):</h4>
+                                <div class="backend-visual">
+                                    <svg width="100%" height="180" viewBox="0 0 600 180">
+                                        <rect x="250" y="20" width="100" height="50" rx="10" fill="#2563eb"/>
+                                        <text x="300" y="50" text-anchor="middle" fill="#fff" font-size="18" font-weight="bold">Backend</text>
+                                        <rect x="60" y="110" width="100" height="40" rx="8" fill="#3b82f6"/>
+                                        <text x="110" y="135" text-anchor="middle" fill="#fff" font-size="14">DB Cluster</text>
+                                        <rect x="250" y="110" width="100" height="40" rx="8" fill="#3b82f6"/>
+                                        <text x="300" y="135" text-anchor="middle" fill="#fff" font-size="14">Ansible Node</text>
+                                        <rect x="440" y="110" width="100" height="40" rx="8" fill="#3b82f6"/>
+                                        <text x="490" y="135" text-anchor="middle" fill="#fff" font-size="14">POS Terminals</text>
+                                        <line x1="300" y1="70" x2="110" y2="110" stroke="#60a5fa" stroke-width="3"/>
+                                        <line x1="300" y1="70" x2="300" y2="110" stroke="#60a5fa" stroke-width="3"/>
+                                        <line x1="300" y1="70" x2="490" y2="110" stroke="#60a5fa" stroke-width="3"/>
+                                    </svg>
+                                    <p class="backend-caption">Схема взаимодействия backend, управляющего узла, базы данных и POS-терминалов</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="chapter2-2" class="chapter-slide">
+            <div class="container">
+                <div class="chapter__card slide-in-right">
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3>Реализация</h3>
+                            <div class="card-tags">
+                                <span class="tag">Установка</span>
+                                <span class="tag">Конфигурация</span>
+                                <span class="tag">Playbook</span>
+                                <span class="tag">Безопасность</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="content-section">
+                                <h4>Установка и настройка Ansible:</h4>
+                                <div class="installation-steps">
+                                    <div class="step-item">
+                                        <div class="step-number">1</div>
+                                        <div class="step-content">
+                                            <h5>Подготовка системы</h5>
+                                            <pre><code># Обновление системы
+sudo apt update && sudo apt upgrade -y
+
+# Установка зависимостей
+sudo apt install software-properties-common
+
+# Добавление репозитория Ansible
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+
+# Установка Ansible
+sudo apt install ansible</code></pre>
+                                            <div class="step-details">
+                                                <p>После установки проверьте версию:</p>
+                                                <pre><code>ansible --version</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="step-item">
+                                        <div class="step-number">2</div>
+                                        <div class="step-content">
+                                            <h5>Настройка inventory</h5>
+                                            <pre><code># /etc/ansible/hosts
+[webservers]
+web1 ansible_host=192.168.1.10 ansible_user=admin
+web2 ansible_host=192.168.1.11 ansible_user=admin
+
+[databases]
+db1 ansible_host=192.168.1.20 ansible_user=admin
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_private_key_file=/path/to/private_key</code></pre>
+                                            <div class="step-details">
+                                                <p>Проверка подключения:</p>
+                                                <pre><code>ansible all -m ping</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="step-item">
+                                        <div class="step-number">3</div>
+                                        <div class="step-content">
+                                            <h5>Создание базового playbook</h5>
+                                            <pre><code>---
+- name: Configure web servers
+  hosts: webservers
+  become: yes
+  vars:
+    nginx_version: "1.18.0"
+    app_port: 8080
+  
+  tasks:
+    - name: Install nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: yes
+    
+    - name: Configure nginx
+      template:
+        src: templates/nginx.conf.j2
+        dest: /etc/nginx/nginx.conf
+      notify: restart nginx
+    
+    - name: Enable and start nginx
+      service:
+        name: nginx
+        state: started
+        enabled: yes
+  
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted</code></pre>
+                                            <div class="step-details">
+                                                <p>Запуск playbook:</p>
+                                                <pre><code>ansible-playbook -i inventory playbook.yml</code></pre>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="content-section">
+                                <h4>Инфраструктура предприятия:</h4>
+                                <div class="infrastructure-table">
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th>Тип</th>
+                                                <th>Название</th>
+                                                <th>IP-адрес</th>
+                                                <th>Роль</th>
+                                                <th>Конфигурация</th>
+                                                <th>Статус</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Сервер</td>
+                                                <td>Web-Server-01</td>
+                                                <td>192.168.1.10</td>
+                                                <td>Веб-сервер</td>
+                                                <td>4 CPU, 8GB RAM</td>
+                                                <td><span class="status active">Активен</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Сервер</td>
+                                                <td>DB-Server-01</td>
+                                                <td>192.168.1.20</td>
+                                                <td>База данных</td>
+                                                <td>8 CPU, 16GB RAM</td>
+                                                <td><span class="status active">Активен</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Компьютер</td>
+                                                <td>Dev-PC-01</td>
+                                                <td>192.168.1.30</td>
+                                                <td>Разработка</td>
+                                                <td>i7, 16GB RAM</td>
+                                                <td><span class="status active">Активен</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Компьютер</td>
+                                                <td>Dev-PC-02</td>
+                                                <td>192.168.1.31</td>
+                                                <td>Разработка</td>
+                                                <td>i7, 16GB RAM</td>
+                                                <td><span class="status active">Активен</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ansible-visual" class="chapter-slide">
+            <div class="container">
+                <div class="chapter__card slide-in-left">
+                    <div class="card-container">
+                        <div class="card-header">
+                            <h3>Визуализация работы Ansible</h3>
+                            <div class="card-tags">
+                                <span class="tag">Ansible</span>
+                                <span class="tag">Automation</span>
+                                <span class="tag">Infrastructure</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="content-section">
+                                <div class="ansible-visual-legend">
+                                    <span class="legend-item"><span class="legend-color ansible"></span> Ansible</span>
+                                    <span class="legend-item"><span class="legend-color server"></span> Серверы</span>
+                                    <span class="legend-item"><span class="legend-color pos"></span> POS-терминалы</span>
+                                    <span class="legend-item"><span class="legend-color net"></span> Сеть</span>
+                                </div>
+                                <h4>Как Ansible управляет инфраструктурой</h4>
+                                <div class="ansible-visual-block large">
+                                    <svg width="100%" height="600" viewBox="0 0 1200 600">
+                                        <!-- Ansible node -->
+                                        <g class="ansible-node">
+                                            <circle cx="600" cy="120" r="60" fill="#2563eb"/>
+                                            <text x="600" y="135" text-anchor="middle" fill="#fff" font-size="32" font-weight="bold">A</text>
+                                            <text x="600" y="165" text-anchor="middle" fill="#fff" font-size="18">Ansible</text>
+                                        </g>
+                                        <!-- Lines to groups -->
+                                        <g class="ansible-lines">
+                                            <line x1="600" y1="180" x2="300" y2="300" stroke="#60a5fa" stroke-width="6" class="ansible-line"/>
+                                            <line x1="600" y1="180" x2="600" y2="300" stroke="#60a5fa" stroke-width="6" class="ansible-line"/>
+                                            <line x1="600" y1="180" x2="900" y2="300" stroke="#60a5fa" stroke-width="6" class="ansible-line"/>
+                                        </g>
+                                        <!-- Group nodes -->
+                                        <g class="group-node">
+                                            <rect x="220" y="300" width="160" height="60" rx="16" fill="#3b82f6"/>
+                                            <text x="300" y="335" text-anchor="middle" fill="#fff" font-size="20">Серверы</text>
+                                            <rect x="520" y="300" width="160" height="60" rx="16" fill="#10b981"/>
+                                            <text x="600" y="335" text-anchor="middle" fill="#fff" font-size="20">POS-терминалы</text>
+                                            <rect x="820" y="300" width="160" height="60" rx="16" fill="#f59e42"/>
+                                            <text x="900" y="335" text-anchor="middle" fill="#fff" font-size="20">Сеть</text>
+                                        </g>
+                                        <!-- Lines to devices (spread out) -->
+                                        <g class="device-lines">
+                                            <!-- Серверы -->
+                                            <line x1="300" y1="360" x2="140" y2="480" stroke="#a5b4fc" stroke-width="4" class="device-line"/>
+                                            <line x1="300" y1="360" x2="300" y2="480" stroke="#a5b4fc" stroke-width="4" class="device-line"/>
+                                            <line x1="300" y1="360" x2="460" y2="480" stroke="#a5b4fc" stroke-width="4" class="device-line"/>
+                                            <!-- POS-терминалы -->
+                                            <line x1="600" y1="360" x2="520" y2="480" stroke="#6ee7b7" stroke-width="4" class="device-line"/>
+                                            <line x1="600" y1="360" x2="600" y2="480" stroke="#6ee7b7" stroke-width="4" class="device-line"/>
+                                            <line x1="600" y1="360" x2="680" y2="480" stroke="#6ee7b7" stroke-width="4" class="device-line"/>
+                                            <line x1="600" y1="360" x2="760" y2="480" stroke="#6ee7b7" stroke-width="4" class="device-line"/>
+                                            <!-- Сеть -->
+                                            <line x1="900" y1="360" x2="820" y2="480" stroke="#fdba74" stroke-width="4" class="device-line"/>
+                                            <line x1="900" y1="360" x2="900" y2="480" stroke="#fdba74" stroke-width="4" class="device-line"/>
+                                            <line x1="900" y1="360" x2="980" y2="480" stroke="#fdba74" stroke-width="4" class="device-line"/>
+                                            <!-- Дополнительные связи -->
+                                            <line x1="300" y1="360" x2="520" y2="480" stroke="#a5b4fc" stroke-width="2" class="device-line" opacity="0.5"/>
+                                            <line x1="600" y1="360" x2="300" y2="480" stroke="#6ee7b7" stroke-width="2" class="device-line" opacity="0.5"/>
+                                            <line x1="900" y1="360" x2="680" y2="480" stroke="#fdba74" stroke-width="2" class="device-line" opacity="0.5"/>
+                                        </g>
+                                        <!-- Devices -->
+                                        <g class="device-node">
+                                            <!-- Серверы -->
+                                            <rect x="100" y="480" width="80" height="40" rx="10" fill="#6366f1"/>
+                                            <text x="140" y="505" text-anchor="middle" fill="#fff" font-size="15">DB</text>
+                                            <rect x="260" y="480" width="80" height="40" rx="10" fill="#6366f1"/>
+                                            <text x="300" y="505" text-anchor="middle" fill="#fff" font-size="15">App</text>
+                                            <rect x="420" y="480" width="80" height="40" rx="10" fill="#6366f1"/>
+                                            <text x="460" y="505" text-anchor="middle" fill="#fff" font-size="15">Web</text>
+                                            <!-- POS-терминалы -->
+                                            <rect x="500" y="480" width="60" height="40" rx="10" fill="#10b981"/>
+                                            <text x="530" y="505" text-anchor="middle" fill="#fff" font-size="15">POS-1</text>
+                                            <rect x="580" y="480" width="60" height="40" rx="10" fill="#10b981"/>
+                                            <text x="610" y="505" text-anchor="middle" fill="#fff" font-size="15">POS-2</text>
+                                            <rect x="660" y="480" width="60" height="40" rx="10" fill="#10b981"/>
+                                            <text x="690" y="505" text-anchor="middle" fill="#fff" font-size="15">POS-3</text>
+                                            <rect x="740" y="480" width="60" height="40" rx="10" fill="#10b981"/>
+                                            <text x="770" y="505" text-anchor="middle" fill="#fff" font-size="15">POS-4</text>
+                                            <!-- Сеть -->
+                                            <rect x="800" y="480" width="60" height="40" rx="10" fill="#f59e42"/>
+                                            <text x="830" y="505" text-anchor="middle" fill="#fff" font-size="15">Router</text>
+                                            <rect x="880" y="480" width="60" height="40" rx="10" fill="#f59e42"/>
+                                            <text x="910" y="505" text-anchor="middle" fill="#fff" font-size="15">Switch</text>
+                                            <rect x="960" y="480" width="60" height="40" rx="10" fill="#f59e42"/>
+                                            <text x="990" y="505" text-anchor="middle" fill="#fff" font-size="15">Firewall</text>
+                                        </g>
+                                    </svg>
+                                    <p class="ansible-visual-caption">Ansible — центральный управляющий узел, который по SSH управляет серверами, POS-терминалами и сетевыми устройствами предприятия.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="economic-justification" class="chapter-slide">
+            <div class="container">
+                <div class="chapter__card slide-in-right">
+                    <div class="card-header">
+                        <h3>Экономическое обоснование внедрения</h3>
+                        <div class="card-tags">
+                            <span class="tag">Экономика</span>
+                            <span class="tag">Эффективность</span>
+                            <span class="tag">Окупаемость</span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="content-section">
+                            <h4>Расчет затрат на внедрение</h4>
+                            <div class="eco-table-wrapper">
+                                <table class="eco-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Статья</th>
+                                            <th>Сумма, руб.</th>
+                                            <th>Комментарий</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Аппаратные затраты</td>
+                                            <td>275 000</td>
+                                            <td>Серверы, апгрейд коммутаторов</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Программные затраты</td>
+                                            <td>225 000</td>
+                                            <td>Лицензии RHEL, Ansible Tower</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Трудовые затраты</td>
+                                            <td>378 000</td>
+                                            <td>Проектирование, разработка, тестирование, внедрение, обучение</td>
+                                        </tr>
+                                        <tr class="eco-table-total">
+                                            <td><b>Итого</b></td>
+                                            <td><b>878 000</b></td>
+                                            <td></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="content-section">
+                            <h4>Экономический эффект</h4>
+                            <ul>
+                                <li>Экономия на трудозатратах: сокращение времени настройки и обновления, снижение количества инцидентов</li>
+                                <li>Годовая экономия: <b>980 000 руб.</b></li>
+                                <li>Косвенные выгоды: повышение отказоустойчивости, ускорение развертывания, улучшение безопасности</li>
+                            </ul>
+                        </div>
+                        <div class="eco-diagram-block">
+                            <div class="eco-diagram">
+                                <div class="eco-diagram-bar" style="width: 90%"><span>Окупаемость: 11 месяцев</span></div>
+                                <div class="eco-diagram-labels">
+                                    <span>Затраты</span>
+                                    <span>Экономия</span>
+                                </div>
+                            </div>
+                            <div class="eco-diagram-caption">
+                                <b>Срок окупаемости:</b> 878 000 / 980 000 ≈ <b>0,9 года (~11 месяцев)</b>
+                            </div>
+                        </div>
+                        <div class="content-section">
+                            <h4>Анализ чувствительности</h4>
+                            <ul>
+                                <li>Оптимистичный сценарий: +25% экономии — 8 месяцев</li>
+                                <li>Базовый сценарий: 11 месяцев</li>
+                                <li>Пессимистичный сценарий: -30% экономии — 16 месяцев</li>
+                            </ul>
+                        </div>
+                        <div class="content-section">
+                            <h4>Выводы</h4>
+                            <ul>
+                                <li>Внедрение системы окупится менее чем за год</li>
+                                <li>Годовая экономия превышает затраты на внедрение</li>
+                                <li>Проект рентабелен даже при пессимистичном сценарии</li>
+                                <li>Есть значительные операционные преимущества</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="conclusion" class="conclusion">
+            <div class="container">
+                <h2 class="conclusion__title fade-in-up">Заключение</h2>
+                <div class="conclusion__content slide-in-left">
+                    <div class="content-container">
+                        <p>В результате работы была разработана и внедрена система автоматизации управления конфигурациями, которая позволила достичь значительных результатов в оптимизации процессов разработки и развертывания.</p>
+                        <div class="results-grid">
+                            <div class="result-item">
+                                <i class="fas fa-clock"></i>
+                                <h4>Сокращение времени</h4>
+                                <p>Сокращение времени развертывания на 60%</p>
+                            </div>
+                            <div class="result-item">
+                                <i class="fas fa-bug"></i>
+                                <h4>Снижение ошибок</h4>
+                                <p>Снижение количества ошибок на 80%</p>
+                            </div>
+                            <div class="result-item">
+                                <i class="fas fa-users"></i>
+                                <h4>Эффективность команды</h4>
+                                <p>Повышение эффективности работы команды</p>
+                            </div>
+                            <div class="result-item">
+                                <i class="fas fa-chart-line"></i>
+                                <h4>Контроль процессов</h4>
+                                <p>Улучшение контроля над процессами</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Глоссарий -->
+        <div class="glossary">
+            <div class="glossary-toggle">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="glossary-content">
+                <h3>Глоссарий</h3>
+                <div class="glossary-terms">
+                    <div class="term-item" data-section="chapter1-1">
+                        <h4>Ansible</h4>
+                        <p>Инструмент автоматизации IT-инфраструктуры, использующий YAML для описания конфигураций. Отличается от других инструментов отсутствием необходимости установки агентов на целевые системы.</p>
+                    </div>
+                    <div class="term-item" data-section="chapter1-1">
+                        <h4>Idempotency</h4>
+                        <p>Свойство операций, при котором многократное выполнение одной и той же операции дает тот же результат, что и однократное выполнение. Ключевое преимущество Ansible.</p>
+                    </div>
+                    <div class="term-item" data-section="chapter1-2">
+                        <h4>Playbook</h4>
+                        <p>YAML-файл, содержащий набор инструкций для автоматизации задач в Ansible. Может включать переменные, условия, циклы и обработчики событий.</p>
+                    </div>
+                    <div class="term-item" data-section="chapter1-2">
+                        <h4>Handler</h4>
+                        <p>Специальный тип задачи, который выполняется только при изменении состояния системы. Обычно используется для перезапуска сервисов.</p>
+                    </div>
+                    <div class="term-item" data-section="chapter1-3">
+                        <h4>Inventory</h4>
+                        <p>Файл, содержащий информацию об управляемых хостах в Ansible. Может включать группы хостов, переменные и параметры подключения.</p>
+                    </div>
+                    <div class="term-item" data-section="chapter1-3">
+                        <h4>Facts</h4>
+                        <p>Системная информация, собираемая Ansible с целевых хостов. Включает данные об ОС, сети, оборудовании и установленном ПО.</p>
+                    </div>
+                    <div class="term-item" data-section="chapter2-1">
+                        <h4>Role</h4>
+                        <p>Набор задач, шаблонов и файлов, организованных в структурированном виде. Позволяет переиспользовать код и упрощает поддержку.</p>
+                    </div>
+                    <div class="term-item" data-section="chapter2-1">
+                        <h4>Vault</h4>
+                        <p>Механизм шифрования в Ansible для хранения конфиденциальных данных. Позволяет безопасно хранить пароли и ключи.</p>
+                    </div>
+                    <div class="term-item" data-section="chapter2-2">
+                        <h4>Task</h4>
+                        <p>Отдельная операция, выполняемая Ansible на целевых хостах. Может использовать различные модули для выполнения действий.</p>
+                    </div>
+                    <div class="term-item" data-section="chapter2-2">
+                        <h4>Module</h4>
+                        <p>Программный код, который Ansible выполняет на целевых хостах. Модули могут быть встроенными или пользовательскими.</p>
+                    </div>
+                    <div class="term-item" data-section="chapter2-2">
+                        <h4>Template</h4>
+                        <p>Файл с переменными, который Ansible обрабатывает перед отправкой на целевой хост. Использует синтаксис Jinja2.</p>
+                    </div>
+                    <div class="term-item" data-section="chapter2-2">
+                        <h4>Conditional</h4>
+                        <p>Условие, определяющее, будет ли выполнена задача. Позволяет создавать гибкие и адаптивные playbook'и.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Дипломный проект. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html> 
