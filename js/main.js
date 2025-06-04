@@ -124,9 +124,9 @@ const createMobileNav = () => {
     const mobileNavButton = document.createElement('button');
     mobileNavButton.classList.add('nav__mobile-toggle');
     mobileNavButton.innerHTML = '<i class="fas fa-bars"></i>';
-
+    
     document.querySelector('.nav__content').appendChild(mobileNavButton);
-
+    
     mobileNavButton.addEventListener('click', () => {
         nav.classList.toggle('nav__menu--active');
         mobileNavButton.classList.toggle('nav__mobile-toggle--active');
@@ -144,7 +144,7 @@ diagramNodes.forEach(node => {
     node.addEventListener('mouseenter', () => {
         node.classList.add('diagram-node--active');
     });
-
+    
     node.addEventListener('mouseleave', () => {
         node.classList.remove('diagram-node--active');
     });
@@ -158,14 +158,14 @@ let lastScrollY = 0;
 const updateParallax = () => {
     const scrolled = window.pageYOffset;
     const translateY = scrolled * 0.5;
-
+    
     hero.style.transform = `translate3d(0, ${translateY}px, 0)`;
     ticking = false;
 };
 
 const onScroll = () => {
     lastScrollY = window.pageYOffset;
-
+    
     if (!ticking) {
         window.requestAnimationFrame(() => {
             updateParallax();
@@ -182,7 +182,7 @@ function startTypingEffect(element) {
     const text = element.textContent;
     element.textContent = '';
     let i = 0;
-
+    
     function type() {
         if (i < text.length) {
             element.textContent += text.charAt(i);
@@ -190,7 +190,7 @@ function startTypingEffect(element) {
             requestAnimationFrame(() => setTimeout(type, 100));
         }
     }
-
+    
     type();
 }
 
@@ -219,12 +219,12 @@ document.querySelectorAll('[data-tooltip]').forEach(element => {
         tooltipElement.className = 'tooltip';
         tooltipElement.textContent = tooltip;
         document.body.appendChild(tooltipElement);
-
+        
         const rect = element.getBoundingClientRect();
         tooltipElement.style.top = rect.top - tooltipElement.offsetHeight - 10 + 'px';
         tooltipElement.style.left = rect.left + (rect.width - tooltipElement.offsetWidth) / 2 + 'px';
     });
-
+    
     element.addEventListener('mouseleave', () => {
         const tooltip = document.querySelector('.tooltip');
         if (tooltip) {
@@ -251,11 +251,11 @@ const chapters = document.querySelectorAll('.chapter-slide');
 navButtons.forEach(button => {
     button.addEventListener('click', () => {
         const targetSection = button.getAttribute('data-section');
-
+        
         // Update active button
         navButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
-
+        
         // Show target section
         chapters.forEach(chapter => {
             chapter.classList.remove('active');
@@ -330,7 +330,7 @@ tableRows.forEach(row => {
         row.style.transform = 'scale(1.02)';
         row.style.transition = 'transform 0.3s ease';
     });
-
+    
     row.addEventListener('mouseleave', () => {
         row.style.transform = 'scale(1)';
     });
@@ -348,4 +348,4 @@ document.querySelectorAll('pre code').forEach(block => {
             }, 2000);
         });
     });
-});
+}); 
