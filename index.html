@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="visual-element"></div>
-    
+
     <header class="header">
         <nav class="nav">
             <div class="container">
@@ -447,26 +447,26 @@ ansible_ssh_private_key_file=/path/to/private_key</code></pre>
   vars:
     nginx_version: "1.18.0"
     app_port: 8080
-  
+
   tasks:
     - name: Install nginx
       apt:
         name: nginx
         state: present
         update_cache: yes
-    
+
     - name: Configure nginx
       template:
         src: templates/nginx.conf.j2
         dest: /etc/nginx/nginx.conf
       notify: restart nginx
-    
+
     - name: Enable and start nginx
       service:
         name: nginx
         state: started
         enabled: yes
-  
+
   handlers:
     - name: restart nginx
       service:
@@ -591,12 +591,12 @@ ansible_ssh_private_key_file=/path/to/private_key</code></pre>
                                             <!-- POS-терминалы -->
                                             <line x1="600" y1="360" x2="520" y2="480" stroke="#6ee7b7" stroke-width="4" class="device-line"/>
                                             <line x1="600" y1="360" x2="600" y2="480" stroke="#6ee7b7" stroke-width="4" class="device-line"/>
-                                            <line x1="600" y1="360" x2="680" y2="480" stroke="#6ee7b7" stroke-width="4" class="device-line"/>
-                                            <line x1="600" y1="360" x2="760" y2="480" stroke="#6ee7b7" stroke-width="4" class="device-line"/>
+                                            <line x1="600" y1="360" x2="660" y2="480" stroke="#6ee7b7" stroke-width="4" class="device-line"/>
+                                            <line x1="600" y1="360" x2="740" y2="480" stroke="#6ee7b7" stroke-width="4" class="device-line"/>
                                             <!-- Сеть -->
                                             <line x1="900" y1="360" x2="820" y2="480" stroke="#fdba74" stroke-width="4" class="device-line"/>
                                             <line x1="900" y1="360" x2="900" y2="480" stroke="#fdba74" stroke-width="4" class="device-line"/>
-                                            <line x1="900" y1="360" x2="980" y2="480" stroke="#fdba74" stroke-width="4" class="device-line"/>
+                                            <line x1="900" y1="360" x2="960" y2="480" stroke="#fdba74" stroke-width="4" class="device-line"/>
                                             <!-- Дополнительные связи -->
                                             <line x1="300" y1="360" x2="520" y2="480" stroke="#a5b4fc" stroke-width="2" class="device-line" opacity="0.5"/>
                                             <line x1="600" y1="360" x2="300" y2="480" stroke="#6ee7b7" stroke-width="2" class="device-line" opacity="0.5"/>
@@ -825,9 +825,10 @@ ansible_ssh_private_key_file=/path/to/private_key</code></pre>
     <footer class="footer">
         <div class="container">
             <p>&copy; 2024 Дипломный проект. Все права защищены.</p>
+            <div>Год: 2025, студент: Парфёнов Леонид Геннадьевич</div>
         </div>
     </footer>
 
     <script src="js/main.js"></script>
 </body>
-</html> 
+</html>
