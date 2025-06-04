@@ -30,12 +30,26 @@ function updateThemeIcon() {
     }
 }
 
-// Animated element that follows the cursor
+// Оптимизация обработчиков событий
+const debounce = (func, wait) => {
+    let timeout;
+    return function executedFunction(...args) {
+        const later = () => {
+            clearTimeout(timeout);
+            func(...args);
+        };
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+    };
+};
+
+// Оптимизация анимации курсора
 const visualElement = document.querySelector('.visual-element');
 let mouseX = 0;
 let mouseY = 0;
 let elementX = 0;
 let elementY = 0;
+let animationFrameId;
 
 document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
@@ -43,15 +57,23 @@ document.addEventListener('mousemove', (e) => {
 });
 
 function animateElement() {
-    // Smooth follow effect
     const dx = mouseX - elementX;
     const dy = mouseY - elementY;
     elementX += dx * 0.1;
     elementY += dy * 0.1;
 
-    visualElement.style.transform = `translate(${elementX}px, ${elementY}px)`;
-    requestAnimationFrame(animateElement);
+    visualElement.style.transform = `translate3d(${elementX}px, ${elementY}px, 0)`;
+    animationFrameId = requestAnimationFrame(animateElement);
 }
+
+// Остановка анимации при уходе со страницы
+document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+        cancelAnimationFrame(animationFrameId);
+    } else {
+        animateElement();
+    }
+});
 
 animateElement();
 
@@ -68,6 +90,8 @@ const observer = new IntersectionObserver((entries) => {
             if (entry.target.classList.contains('hero__title')) {
                 startTypingEffect(entry.target);
             }
+            // Отключаем наблюдение после появления
+            observer.unobserve(entry.target);
         }
     });
 }, observerOptions);
@@ -77,16 +101,20 @@ document.querySelectorAll('.slide-in-left, .slide-in-right, .fade-in-up, .hero__
 });
 
 // Smooth scroll for navigation links
+const smoothScroll = (target) => {
+    const element = document.querySelector(target);
+    if (element) {
+        element.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+};
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', (e) => {
         e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
+        smoothScroll(anchor.getAttribute('href'));
     });
 });
 
@@ -96,9 +124,9 @@ const createMobileNav = () => {
     const mobileNavButton = document.createElement('button');
     mobileNavButton.classList.add('nav__mobile-toggle');
     mobileNavButton.innerHTML = '<i class="fas fa-bars"></i>';
-    
+
     document.querySelector('.nav__content').appendChild(mobileNavButton);
-    
+
     mobileNavButton.addEventListener('click', () => {
         nav.classList.toggle('nav__menu--active');
         mobileNavButton.classList.toggle('nav__mobile-toggle--active');
@@ -116,33 +144,53 @@ diagramNodes.forEach(node => {
     node.addEventListener('mouseenter', () => {
         node.classList.add('diagram-node--active');
     });
-    
+
     node.addEventListener('mouseleave', () => {
         node.classList.remove('diagram-node--active');
     });
 });
 
-// Add parallax effect to hero section
+// Оптимизация параллакс-эффекта
 const hero = document.querySelector('.hero');
-window.addEventListener('scroll', () => {
+let ticking = false;
+let lastScrollY = 0;
+
+const updateParallax = () => {
     const scrolled = window.pageYOffset;
-    hero.style.backgroundPositionY = scrolled * 0.5 + 'px';
-});
+    const translateY = scrolled * 0.5;
+
+    hero.style.transform = `translate3d(0, ${translateY}px, 0)`;
+    ticking = false;
+};
+
+const onScroll = () => {
+    lastScrollY = window.pageYOffset;
+
+    if (!ticking) {
+        window.requestAnimationFrame(() => {
+            updateParallax();
+            ticking = false;
+        });
+        ticking = true;
+    }
+};
+
+window.addEventListener('scroll', onScroll, { passive: true });
 
 // Typing effect for hero title
 function startTypingEffect(element) {
     const text = element.textContent;
     element.textContent = '';
     let i = 0;
-    
+
     function type() {
         if (i < text.length) {
             element.textContent += text.charAt(i);
             i++;
-            setTimeout(type, 100);
+            requestAnimationFrame(() => setTimeout(type, 100));
         }
     }
-    
+
     type();
 }
 
@@ -171,12 +219,12 @@ document.querySelectorAll('[data-tooltip]').forEach(element => {
         tooltipElement.className = 'tooltip';
         tooltipElement.textContent = tooltip;
         document.body.appendChild(tooltipElement);
-        
+
         const rect = element.getBoundingClientRect();
         tooltipElement.style.top = rect.top - tooltipElement.offsetHeight - 10 + 'px';
         tooltipElement.style.left = rect.left + (rect.width - tooltipElement.offsetWidth) / 2 + 'px';
     });
-    
+
     element.addEventListener('mouseleave', () => {
         const tooltip = document.querySelector('.tooltip');
         if (tooltip) {
@@ -203,11 +251,11 @@ const chapters = document.querySelectorAll('.chapter-slide');
 navButtons.forEach(button => {
     button.addEventListener('click', () => {
         const targetSection = button.getAttribute('data-section');
-        
+
         // Update active button
         navButtons.forEach(btn => btn.classList.remove('active'));
         button.classList.add('active');
-        
+
         // Show target section
         chapters.forEach(chapter => {
             chapter.classList.remove('active');
@@ -225,32 +273,36 @@ const glossaryToggle = document.querySelector('.glossary-toggle');
 const glossaryContent = document.querySelector('.glossary-content');
 const termItems = document.querySelectorAll('.term-item');
 
+let glossaryTimeout;
+
 // Toggle glossary visibility
 glossaryToggle.addEventListener('click', () => {
+    clearTimeout(glossaryTimeout);
     glossary.classList.toggle('active');
 });
 
 // Close glossary when clicking outside
 document.addEventListener('click', (e) => {
     if (!glossary.contains(e.target)) {
-        glossary.classList.remove('active');
+        clearTimeout(glossaryTimeout);
+        glossaryTimeout = setTimeout(() => {
+            glossary.classList.remove('active');
+        }, 100);
     }
 });
 
 // Update visible terms based on current section
-function updateVisibleTerms() {
+const updateVisibleTerms = debounce(() => {
     const currentSection = document.querySelector('.chapter-slide.active');
     if (!currentSection) return;
 
     const sectionId = currentSection.id;
-    termItems.forEach(term => {
-        if (term.getAttribute('data-section') === sectionId) {
-            term.style.display = 'block';
-        } else {
-            term.style.display = 'none';
-        }
+    requestAnimationFrame(() => {
+        termItems.forEach(term => {
+            term.style.display = term.getAttribute('data-section') === sectionId ? 'block' : 'none';
+        });
     });
-}
+}, 100);
 
 // Update terms when changing sections
 const sectionObserver = new IntersectionObserver((entries) => {
@@ -278,7 +330,7 @@ tableRows.forEach(row => {
         row.style.transform = 'scale(1.02)';
         row.style.transition = 'transform 0.3s ease';
     });
-    
+
     row.addEventListener('mouseleave', () => {
         row.style.transform = 'scale(1)';
     });
@@ -296,4 +348,4 @@ document.querySelectorAll('pre code').forEach(block => {
             }, 2000);
         });
     });
-}); 
+});
